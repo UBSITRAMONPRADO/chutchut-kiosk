@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './menu-item-card.html',
   styleUrl: './menu-item-card.css',
 })
-export class MenuItemCard {}
+export class MenuItemCardComponent {}
