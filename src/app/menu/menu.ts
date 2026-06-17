@@ -1,9 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, inject, signal, computed } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { CartServices, MenuItem } from '../cart-services';
+import { MenuItemCardComponent } from '../menu-item-card/menu-item-card';
 
 @Component({
   selector: 'app-menu',
-  imports: [],
+  imports: [MenuItemCardComponent, RouterLink],
   templateUrl: './menu.html',
-  styleUrl: './menu.css',
+  styleUrl: './menu.css'
 })
-export class MenuComponent {}
+export class MenuComponent {
+  cartService = inject(CartServices);
+
+  categories = ['All', 'Wings & Rice', 'Wings & Fries', 'Wings & Gravy', 'Wings & Drinks', 'Combos', 'Fries', 'Corndog'];
+  selectedCategory = signal('All');
+
+  filteredItems = computed(() => {
+    const cat = this.selectedCategory();
+    if (cat === 'All') return this.cartService.menuItems();
+    return this.cartService.menuItems().filter(item => item.category === cat);
+  });
+
+  selectCategory(cat: string): void {
+    this.selectedCategory.set(cat);
+  }
+
+  handleAddToCart(item: MenuItem): void {
+    this.cartService.addToCart(item);
+  }
+}
