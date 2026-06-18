@@ -12,7 +12,7 @@ import { MenuItemCardComponent } from '../menu-item-card/menu-item-card';
 export class MenuComponent {
   cartService = inject(CartServices);
 
-  categories = ['All', 'Wings & Rice', 'Wings & Fries', 'Wings & Gravy', 'Wings & Drinks', 'Combos', 'Fries', 'Corndog'];
+  categories = ['All', 'Chillers', 'Combos', 'Corndog', 'Fries', 'Wings & Drinks', 'Wings & Fries', 'Wings & Gravy', 'Wings & Rice'];
   selectedCategory = signal('All');
 
   filteredItems = computed(() => {
